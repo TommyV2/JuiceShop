@@ -15,6 +15,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
+import { state } from '@angular/animations'
 
 library.add(faKey, faEye, faEyeSlash, faGoogle)
 dom.watch()
@@ -103,6 +104,8 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin () {
-    this.windowRefService.nativeWindow.location.replace(`${oauthProviderUrl}?client_id=${this.clientId}&response_type=token&scope=email&redirect_uri=${this.redirectUri}`)
+    let state = (Math.random() * 1000000).toString();
+    localStorage.setItem("state", state)
+    this.windowRefService.nativeWindow.location.replace(`${oauthProviderUrl}?client_id=${this.clientId}&response_type=token&scope=email&redirect_uri=${this.redirectUri}&state=${state}`)
   }
 }
